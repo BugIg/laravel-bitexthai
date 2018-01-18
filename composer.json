@@ -1,0 +1,33 @@
+{
+  "name": "BugIg/laravel-bitexthai",
+  "description": "Implementation of bx.in.th trading API for Laravel",
+  "tags": ["bx.in.th", "api", "laravel"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Igor M",
+      "email": "i.mozzhakov@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0",
+    "guzzlehttp/guzzle": ">=6.3",
+    "laravel/framework": ">=5.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "BugIg\\bitexthai\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "BugIg\\bitexthai\\BitexthaiServiceProvider"
+      ],
+      "aliases": {
+        "Bitexthai": "BugIg\\bitexthai\\BitexthaiAPIFacade"
+      }
+    }
+  }
+}
