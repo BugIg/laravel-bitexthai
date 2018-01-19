@@ -13,8 +13,6 @@ class BitexthaiAPIServiceProvider extends ServiceProvider
         ], 'bitexthaiapi');
     }
 
-
-
     /**
      * Register the application services.
      *
