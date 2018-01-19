@@ -15,18 +15,23 @@
     "guzzlehttp/guzzle": ">=6.3",
     "laravel/framework": ">=5.4"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^6",
+    "orchestra/testbench": "^3.5"
+  },
   "autoload": {
     "psr-4": {
-      "BugIg\\bitexthai\\": "src/"
+      "BugIg\\Bitexthai\\": "src/",
+      "BugIg\\Bitexthai\\Test\\": "tests/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "BugIg\\bitexthai\\BitexthaiServiceProvider"
+        "BugIg\\Bitexthai\\BitexthaiAPIServiceProvider"
       ],
       "aliases": {
-        "Bitexthai": "BugIg\\bitexthai\\BitexthaiAPIFacade"
+        "BitexthaiAPI": "BugIg\\Bitexthai\\BitexthaiAPIFacade"
       }
     }
   }

@@ -1,6 +1,6 @@
 <?php
 
-namespace adman9000\binance;
+namespace BugIg\Bitexthai;
 
 use GuzzleHttp\Client;
 
@@ -13,10 +13,10 @@ class BitexthaiAPI
 
     function __construct()
     {
-        $this->key = config('bitexthai.auth.key');
-        $this->secret = config('bitexthai.auth.secret');
-        $this->url = config('bitexthai.urls.api');
-        $this->pairs = config('bitexthai.urls.pairs');
+        $this->key = config('bitexthaiapi.auth.key');
+        $this->secret = config('bitexthaiapi.auth.secret');
+        $this->url = config('bitexthaiapi.urls.api');
+        $this->pairs = config('bitexthaiapi.pairs');
     }
 
     function setAPI($key, $secret)
@@ -28,10 +28,11 @@ class BitexthaiAPI
     /**
      * Returns a list of all currency pairings
      *
-     * @return null|string
+     * @return null|mixed
      */
     public function getTicker()
     {
+
         $client = new Client();
         try {
             $request = $client->request('GET', $this->url . '/', [
@@ -42,7 +43,8 @@ class BitexthaiAPI
             return null;
         }
         $response = $request->getBody()->getContents();
-        return $response;
+
+        return \GuzzleHttp\json_decode($response);
     }
 
     /**
@@ -50,7 +52,7 @@ class BitexthaiAPI
      * for some API calls. Will also include the minimum order amount for primary and secondary currency
      * in each pairing market.
      *
-     * @return null|string
+     * @return null|mixed
      */
     public function getCurrencyPairings()
     {
@@ -64,7 +66,7 @@ class BitexthaiAPI
             return null;
         }
         $response = $request->getBody()->getContents();
-        return $response;
+        return \GuzzleHttp\json_decode($response);
     }
 
     /**
@@ -72,7 +74,7 @@ class BitexthaiAPI
      *
      * @param string $first_currency
      * @param string $second_currency
-     * @return null|array
+     * @return null|mixed
      */
     public function getOrderBook($first_currency, $second_currency)
     {
@@ -91,7 +93,7 @@ class BitexthaiAPI
             return null;
         }
         $response = $request->getBody()->getContents();
-        return $response;
+        return \GuzzleHttp\json_decode($response);
     }
 
     /**
@@ -99,7 +101,7 @@ class BitexthaiAPI
      *
      * @param string $first_currency
      * @param string $second_currency
-     * @return null|array
+     * @return null|mixed
      */
     public function getRecentTrades($first_currency, $second_currency)
     {
@@ -118,7 +120,7 @@ class BitexthaiAPI
             return null;
         }
         $response = $request->getBody()->getContents();
-        return $response;
+        return \GuzzleHttp\json_decode($response);
     }
 
     /**
