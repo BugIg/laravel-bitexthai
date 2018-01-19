@@ -6,21 +6,6 @@ use \BugIg\Bitexthai\BitexthaiAPI;
 class BitexthaiAPITest extends TestCase
 {
     /**
-     * Test get all currency pairings
-     * @return void
-     */
-    public function testGetTicker()
-    {
-        $bitexthaiAPI = new BitexthaiAPI;
-
-        $ticker = $bitexthaiAPI->getTicker();
-
-        $this->assertEquals('1',  $ticker->{1}->pairing_id);
-        $this->assertEquals('THB',  $ticker->{1}->primary_currency);
-        $this->assertEquals('BTC',  $ticker->{1}->secondary_currency);
-    }
-
-    /**
      * Test get list of all available currency pairings
      * @return void
      */
@@ -28,11 +13,27 @@ class BitexthaiAPITest extends TestCase
     {
         $bitexthaiAPI = new BitexthaiAPI;
 
-        $currencyPairings = $bitexthaiAPI->getCurrencyPairings();
+        $ticker = $bitexthaiAPI->getCurrencyPairings();
 
-        $this->assertEquals('1',  $currencyPairings->{1}->pairing_id);
-        $this->assertEquals('THB',  $currencyPairings->{1}->primary_currency);
-        $this->assertEquals('BTC',  $currencyPairings->{1}->secondary_currency);
+        $this->assertEquals('1',  $ticker->{1}->pairing_id);
+        $this->assertEquals('THB',  $ticker->{1}->primary_currency);
+        $this->assertEquals('BTC',  $ticker->{1}->secondary_currency);
+    }
+
+    /**
+     * Test get currency pairing THB/BTC
+     * @return void
+     */
+    public function testGetCurrencyPairing()
+    {
+        $bitexthaiAPI = new BitexthaiAPI;
+
+        $currencyPairing = $bitexthaiAPI->getCurrencyPairing('THB', 'BTC');
+
+
+        $this->assertEquals('1',  $currencyPairing->pairing_id);
+        $this->assertEquals('THB',  $currencyPairing->primary_currency);
+        $this->assertEquals('BTC',  $currencyPairing->secondary_currency);
     }
 
     /**

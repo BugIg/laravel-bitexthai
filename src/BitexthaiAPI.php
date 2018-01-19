@@ -30,9 +30,8 @@ class BitexthaiAPI
      *
      * @return null|mixed
      */
-    public function getTicker()
+    public function getCurrencyPairings()
     {
-
         $client = new Client();
         try {
             $request = $client->request('GET', $this->url . '/', [
@@ -47,18 +46,24 @@ class BitexthaiAPI
         return \GuzzleHttp\json_decode($response);
     }
 
+
     /**
-     * Returns a list of all available currency pairings, including their "pairing_id" which is required
-     * for some API calls. Will also include the minimum order amount for primary and secondary currency
-     * in each pairing market.
+     * Returns a list of all currency pairing
      *
-     * @return null|mixed
+     * @param string $first_currency
+     * @param string $second_currency
+     * @return mixed|null
      */
-    public function getCurrencyPairings()
+    public function getCurrencyPairing($first_currency, $second_currency)
     {
+        $pairing_id = $this->getPairingId($first_currency, $second_currency);
+
+        if(!$pairing_id)
+            return null;
+
         $client = new Client();
         try {
-            $request = $client->request('GET', $this->url . '/pairing/', [
+            $request = $client->request('GET', $this->url . '/', [
                 'http_errors' => false,
                 'timeout' => 6,
             ]);
@@ -66,8 +71,12 @@ class BitexthaiAPI
             return null;
         }
         $response = $request->getBody()->getContents();
-        return \GuzzleHttp\json_decode($response);
+        $pairs = \GuzzleHttp\json_decode($response);
+
+        return $pairs->{$pairing_id}? $pairs->{$pairing_id} : null;
     }
+
+
 
     /**
      * Returns a list of all buy and sell orders in the order book for the selected pair
